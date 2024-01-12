@@ -13,7 +13,7 @@ from django.contrib.auth.models import (
 )
 
 
-def recipe_impage_file_path(instance, filename):
+def recipe_image_file_path(instance, filename):
     """Genereate file path for new recipe image."""
     ext = os.path.splitext(filename)[1]
     filename = f'{uuid.uuid4()}{ext}'
@@ -49,7 +49,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     """User in the system."""
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
-    is_acctive = models.BooleanField(default=True)
+    # is_acctive = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -70,7 +70,7 @@ class Recipe(models.Model):
     link = models.CharField(max_length=255, blank=True)
     tags = models.ManyToManyField('Tag')
     ingredients = models.ManyToManyField('Ingredient')
-    image = models.ImageField(null=True, upload_to=recipe_impage_file_path)
+    image = models.ImageField(null=True, upload_to=recipe_image_file_path)
 
     def __str__(self):
         return self.title
